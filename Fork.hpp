@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <thread>
 #include <mutex>
@@ -13,6 +15,5 @@ public:
     int id;
 private:
     bool inUse;
-    std::mutex mutex;
-    std::condition_variable cv;
+    std::mutex* mutex;
 };

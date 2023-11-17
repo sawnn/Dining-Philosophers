@@ -1,10 +1,11 @@
 #include "Fork.hpp"
 
-Fork::Fork(int id) : id(id), inUse(false) {}
-
+Fork::Fork(int id) : id(id), mutex(new std::mutex()), inUse(false) {
+    // Constructor implementation
+}
 
 bool Fork::pickUp() {
-    std::unique_lock<std::mutex> lock(mutex);
+    std::unique_lock<std::mutex> lock(*mutex);
     if (inUse) {
         return false;
     }
@@ -15,6 +16,6 @@ bool Fork::pickUp() {
 }
 
 void Fork::putDown() {
-    std::unique_lock<std::mutex> lock(mutex);
+    std::unique_lock<std::mutex> lock(*mutex);
     inUse = false;
 }

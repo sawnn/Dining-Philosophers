@@ -1,3 +1,4 @@
+#pragma once
 #include <atomic>
 #include <thread>
 #include <mutex>
@@ -22,7 +23,7 @@ private:
     Fork& left;
     Fork& right;
     int hungry_limit;
-    std::thread thread;
+    std::thread* thread;
     bool eating;
     bool thinking;
 };

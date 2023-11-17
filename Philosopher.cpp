@@ -1,7 +1,7 @@
 #include "Philosopher.hpp"
 
 Philosopher::Philosopher(int id, Fork& left, Fork& right, int hungry_limit) : id(id), left(left), right(right), hungry_limit(hungry_limit), eating(false), thinking(false) {
-    thread = std::thread(&Philosopher::start, this);
+    thread = new std::thread(&Philosopher::start, this);
 }
 
 
@@ -14,9 +14,13 @@ void Philosopher::start() {
 }
 
 void Philosopher::stop() {
-    thread.join();
+    
+    if (thread) {
+        thread->join();
+        delete thread;
+        thread = nullptr;
+    }
 }
-
 
 
 void Philosopher::think() {
@@ -62,7 +66,7 @@ bool Philosopher::rightPickUp() {
 }
 
 void Philosopher::join() {
-    thread.join();
+    thread->join();
 }
 
 void Philosopher::print() {
